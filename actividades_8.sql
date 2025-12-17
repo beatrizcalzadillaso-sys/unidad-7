@@ -34,9 +34,15 @@ departamento, el número de empleados no directores que tiene y su salario medio
 a dos decimales), ordenando el resultado por el número de empleados de cada departamento.*/
 select numdep, puesto, count(puesto) 'CantEmp', avg(salario) 'SalarioMedio'
 from departamento natural join empleado
-where puesto in ('empleado', 'gerente', 'vendedor') 
-group by numdep
-having salariomedio>1200;
+where puesto  like ('empleado', 'gerente', 'vendedor')
+group by puesto;
+
+/*having salariomedio>1200;*/
+
+select numdep, puesto
+from departamento natural join empleado
+where puesto  like 'empleado' and 'gerente';
+
 
 
 
