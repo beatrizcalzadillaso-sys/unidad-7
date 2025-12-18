@@ -8,7 +8,6 @@ from departamento;
 
 
 
-
 /*a) Indica por cada puesto que sea desempeñado por más de dos empleados, el nombre del puesto,
 el número de empleados que lo desempeñan, la suma de sus salarios, la suma de sus
 comisiones, el salario máximo y el salario mínimo. Asigna alias a todos los datos que se
@@ -32,16 +31,45 @@ order by numdep, puesto;
 con un salario medio de sus empleados no directores superior a 1200 €, el número del
 departamento, el número de empleados no directores que tiene y su salario medio (redondeado
 a dos decimales), ordenando el resultado por el número de empleados de cada departamento.*/
-select numdep, puesto, count(puesto) 'CantEmp', avg(salario) 'SalarioMedio'
+select numdep, puesto /* count(puesto) 'CantEmp', avg(salario) 'SalarioMedio'*/
 from departamento natural join empleado
-where puesto  like ('empleado', 'gerente', 'vendedor')
-group by puesto;
+where puesto not like 'director'
+group by numdep;
+
+select numdep,count(*) 'CantEmp', round (avg(salario), 2) 'SalarioMedio'
+from departamento natural join empleado
+where puesto not like 'director'
+group by numdep
+having SalarioMedio>1200
+order by CantEmp;
+
 
 /*having salariomedio>1200;*/
 
-select numdep, puesto
+select numdep, nomemp, puesto
 from departamento natural join empleado
-where puesto  like 'empleado' and 'gerente';
+where puesto not like 'director';
+
+select numdep, nomemp, puesto, count(puesto) 'CantEmp', avg(salario) 'SalarioMedio'
+from departamento natural join empleado
+where puesto !='director'
+group by puesto
+having salariomedio>1200;
+
+/*d) Indica para los departamentos con salario medio superior a 1800 €, su número, nombre, el
+salario medio de sus empleados y el salario máximo y mínimo.*/
+
+/*e) Visualiza el número de vendedores del departamento llamado Ventas.*/
+select numemp
+from departamento natural join empleado
+where nomdep = 'ventas';
+
+/*f) Indica para todos los empleados que trabajan en el departamento de ventas su nombre, salario,
+comisión, el nombre de su jefe (columna Jefe), el salario de este (columna Salario jefe) y el
+resultado de dividir el salario del jefe entre el del empleado (columna Factor multiplicador)
+redondeado a dos decimales.*/
+
+
 
 
 
