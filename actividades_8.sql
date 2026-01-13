@@ -63,9 +63,27 @@ comisión, el nombre de su jefe (columna Jefe), el salario de este (columna Sala
 resultado de dividir el salario del jefe entre el del empleado (columna Factor multiplicador)
 redondeado a dos decimales.*/
 
+select numdep
+from  departamento
+where nomdep like 'ventas';
+
+select e.nomemp, e.salario, e.comision, ej.nomemp 'Jefe', ej.salario 'Salario Jefe', round(ej.salario/e.salario,2) 'Factor Multiplicador' 
+from  empleado e inner join empleado ej on e.numempjefe=ej.numemp
+where e.numdep = (select numdep
+	from  departamento
+	where nomdep like 'ventas');
+
+
+/*g) Indica para todos los empleados que tengan dos o más empleados subordinados, su nombre,
+salario, número de subordinados que tiene y el nombre del departamento en el que trabaja.
+Ordena el resultado por número de subordinados de mayor a menor.*/
 
 
 
+select EJ.nomemp, EJ.salario ,count(E.numempjefe) 'CantidadSubordinados', d.nomdep
+from empleado E join empleado EJ on E.numempjefe=EJ.numemp join departamento d on ej.numdep=d.numdep
+group by E.numempjefe
+having CantidadSubordinados>=2;
 
 
 
