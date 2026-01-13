@@ -31,10 +31,10 @@ order by numdep, puesto;
 con un salario medio de sus empleados no directores superior a 1200 €, el número del
 departamento, el número de empleados no directores que tiene y su salario medio (redondeado
 a dos decimales), ordenando el resultado por el número de empleados de cada departamento.*/
-select numdep, puesto /* count(puesto) 'CantEmp', avg(salario) 'SalarioMedio'*/
+select numdep, puesto, salario  
 from departamento natural join empleado
-where puesto not like 'director'
-group by numdep;
+where puesto not like 'director';
+/*group by numdep;*/
 
 select numdep,count(*) 'CantEmp', round (avg(salario), 2) 'SalarioMedio'
 from departamento natural join empleado
@@ -44,25 +44,19 @@ having SalarioMedio>1200
 order by CantEmp;
 
 
-/*having salariomedio>1200;*/
-
-select numdep, nomemp, puesto
-from departamento natural join empleado
-where puesto not like 'director';
-
-select numdep, nomemp, puesto, count(puesto) 'CantEmp', avg(salario) 'SalarioMedio'
-from departamento natural join empleado
-where puesto !='director'
-group by puesto
-having salariomedio>1200;
-
 /*d) Indica para los departamentos con salario medio superior a 1800 €, su número, nombre, el
 salario medio de sus empleados y el salario máximo y mínimo.*/
+select numdep, nomdep ,round (avg(salario), 2) 'salarioMedio', max(salario), min(salario)
+from empleado natural join departamento
+group by numdep
+having salarioMedio>1800;
+
+
 
 /*e) Visualiza el número de vendedores del departamento llamado Ventas.*/
-select numemp
+select numemp, puesto, nomdep
 from departamento natural join empleado
-where nomdep = 'ventas';
+where nomdep like 'ventas' and puesto like 'vendedor';
 
 /*f) Indica para todos los empleados que trabajan en el departamento de ventas su nombre, salario,
 comisión, el nombre de su jefe (columna Jefe), el salario de este (columna Salario jefe) y el
