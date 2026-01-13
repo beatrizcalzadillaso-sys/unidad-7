@@ -5,9 +5,16 @@ from centro;
 
 /*a) Muestra por cada centro de trabajo, su nombre y dirección, así como el número de
 departamentos en que se divide y el presupuesto máximo y mínimo de sus departamentos.*/
-select c.nomcen 'NomCentro', c.dircen 'DirCentro', d.nomdep 'NomDep', count(d.codcen)
+select c.nomcen 'NomCentro', c.dircen 'DirCentro', count(d.nomdep)'CantidadDepartamentos', max(d.preanu), min(preanu)
 from centro c join departamento d on c.codcen=d.codcen
-group by nomcen;
+group by c.nomcen;
+
+select count(d.nomdep)'CantidadDepartamentos'
+from centro c join departamento d on c.codcen=d.codcen
+group by c.nomcen;
+
+select *
+from centro c join departamento d on c.codcen=d.codcen;
 
 
 
